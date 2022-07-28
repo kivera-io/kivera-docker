@@ -17,17 +17,19 @@ COPY custom.sh /
 WORKDIR /home/kivera
 EXPOSE 8080/tcp 8090/tcp
 
+# Configure permissions
+RUN adduser --system --group kivera \
+    && mkdir -p /opt/kivera/etc /opt/kivera/var/log \
+    && chown -R kivera:kivera /opt/kivera
+
 # Install Kivera
 ADD https://download.kivera.io/binaries/proxy/linux/amd64/kivera-$version.tar.gz /tmp/kivera.tar.gz
 
 RUN tar -xvzf /tmp/kivera.tar.gz -C /tmp \
+    && mkdir -p $KIVERA_PATH \
     && cp /tmp/bin/linux/amd64/kivera $KIVERA_PATH/kivera
 
-# Configure permissions
-RUN adduser --system --group kivera \
-    && mkdir -p /opt/kivera/etc /opt/kivera/var/log \
-    && chown -R kivera:kivera /opt/kivera \
-    && chmod ug+x /opt/kivera/bin/kivera /opt/kivera/bin/entrypoint.sh
+RUN chmod ug+x /opt/kivera/bin/kivera /entrypoint.sh /custom.sh
 
 # Configure logging agent
 RUN curl -o td-agent-apt-source.deb https://packages.treasuredata.com/4/ubuntu/focal/pool/contrib/f/fluentd-apt-source/fluentd-apt-source_2020.8.25-1_all.deb

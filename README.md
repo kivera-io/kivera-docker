@@ -11,8 +11,7 @@ Create a local directory (i.e. files/) which contains your Kivera credentials fi
 
 ```
 docker run -it \
-	-v $PWD/files:/opt/kivera/etc  \
-    -v ~/.aws:/root/.aws \
+    -v $PWD/files:/opt/kivera/etc  \
     --user root \
     kivera-proxy
 ```

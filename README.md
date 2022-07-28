@@ -10,10 +10,7 @@
 Create a local directory (i.e. files/) which contains your Kivera credentials file (named *credentials.json*). This directory will be mounted to the container.
 
 ```
-docker run -it \
-    -v $PWD/files:/opt/kivera/etc  \
-    --user root \
-    kivera-proxy
+docker run -it -v $PWD/files:/opt/kivera/etc --user root kivera-proxy
 ```
 
 ### Customise Image

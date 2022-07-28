@@ -20,7 +20,7 @@ EXPOSE 8080/tcp 8090/tcp
 # Configure permissions
 RUN adduser --system --group kivera \
     && mkdir -p /opt/kivera/etc /opt/kivera/var/log \
-    && chown -R kivera:kivera /opt/kivera
+    && chown -R kivera:kivera /opt/kivera /home/kivera
 
 # Install Kivera
 ADD https://download.kivera.io/binaries/proxy/linux/amd64/kivera-$version.tar.gz /tmp/kivera.tar.gz

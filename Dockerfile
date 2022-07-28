@@ -32,11 +32,15 @@ RUN tar -xvzf /tmp/kivera.tar.gz -C /tmp \
 RUN chmod ug+x /opt/kivera/bin/kivera /home/kivera/entrypoint.sh /home/kivera/custom.sh
 
 # Configure logging agent
-RUN curl -o td-agent-apt-source.deb https://packages.treasuredata.com/4/ubuntu/focal/pool/contrib/f/fluentd-apt-source/fluentd-apt-source_2020.8.25-1_all.deb
-RUN apt install -y ./td-agent-apt-source.deb
-RUN apt update && apt install -y td-agent
-RUN /usr/sbin/td-agent-gem install fluent-plugin-out-kivera
-COPY fluent.conf /etc/td-agent/td-agent.conf
+# RUN curl -o td-agent-apt-source.deb https://packages.treasuredata.com/4/ubuntu/focal/pool/contrib/f/fluentd-apt-source/fluentd-apt-source_2020.8.25-1_all.deb
+# RUN apt install -y ./td-agent-apt-source.deb
+# RUN apt update && apt install -y td-agent
+# RUN /usr/sbin/td-agent-gem install fluent-plugin-out-kivera
+# COPY fluent.conf /etc/td-agent/td-agent.conf
+
+RUN curl -L -O https://artifacts.elastic.co/downloads/beats/filebeat/filebeat-8.3.2-amd64.deb
+RUN dpkg -i filebeat-8.3.2-amd64.deb
+COPY filebeat.yml /etc/filebeat/filebeat.yml
 
 # Entrypoint
 USER kivera

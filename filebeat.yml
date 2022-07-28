@@ -1,0 +1,9 @@
+# List of inputs to fetch data.
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /opt/kivera/var/log/proxy.log
+
+output.elasticsearch:
+  hosts: ["host.docker.internal:9200"]

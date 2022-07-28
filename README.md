@@ -3,7 +3,9 @@
 ### Build Image
 
 
-```docker build -t kivera-proxy --build-arg version=latest .```
+```
+docker build -t kivera-proxy --build-arg version=latest .
+```
 
 ### Run Image
 

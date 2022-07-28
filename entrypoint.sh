@@ -23,7 +23,7 @@ if [[ ! -f "${KIVERA_CREDENTIALS}" ]]; then
 fi
 
 # Start custom logging process
-/custom.sh &
+/home/kivera/custom.sh &
 
 # Start Kivera
 "${KIVERA_PATH}"/kivera 2>&1 | tee -a "${KIVERA_LOGS_FILE}"

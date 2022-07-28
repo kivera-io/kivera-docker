@@ -11,8 +11,8 @@ ENV KIVERA_CA=/opt/kivera/etc/ca.pem
 ENV KIVERA_CERT_TYPE=ecdsa
 ENV KIVERA_LOGS_FILE=/opt/kivera/var/log/proxy.log
 
-COPY entrypoint.sh /
-COPY custom.sh /
+COPY entrypoint.sh /home/kivera/
+COPY custom.sh /home/kivera/
 
 WORKDIR /home/kivera
 EXPOSE 8080/tcp 8090/tcp
@@ -29,7 +29,7 @@ RUN tar -xvzf /tmp/kivera.tar.gz -C /tmp \
     && mkdir -p $KIVERA_PATH \
     && cp /tmp/bin/linux/amd64/kivera $KIVERA_PATH/kivera
 
-RUN chmod ug+x /opt/kivera/bin/kivera /entrypoint.sh /custom.sh
+RUN chmod ug+x /opt/kivera/bin/kivera /home/kivera/entrypoint.sh /home/kivera/custom.sh
 
 # Configure logging agent
 RUN curl -o td-agent-apt-source.deb https://packages.treasuredata.com/4/ubuntu/focal/pool/contrib/f/fluentd-apt-source/fluentd-apt-source_2020.8.25-1_all.deb
@@ -40,4 +40,4 @@ COPY fluent.conf /etc/td-agent/td-agent.conf
 
 # Entrypoint
 USER kivera
-ENTRYPOINT ["/entrypoint.sh"]
+ENTRYPOINT ["/home/kivera/entrypoint.sh"]

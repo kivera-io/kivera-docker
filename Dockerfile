@@ -11,16 +11,17 @@ ENV KIVERA_CA=/opt/kivera/etc/ca.pem
 ENV KIVERA_CERT_TYPE=ecdsa
 ENV KIVERA_LOGS_FILE=/opt/kivera/var/log/proxy.log
 
-COPY entrypoint.sh /home/kivera/
-COPY custom.sh /home/kivera/
-
-WORKDIR /home/kivera
 EXPOSE 8080/tcp 8090/tcp
 
 # Configure permissions
 RUN adduser --system --group kivera \
-    && mkdir -p /opt/kivera/etc /opt/kivera/var/log \
-    && chown -R kivera:kivera /opt/kivera /home/kivera
+    && mkdir -p /opt/kivera/etc /opt/kivera/var/log /home/kivera \
+    && chown -R kivera:kivera /opt/kivera
+
+WORKDIR /home/kivera
+
+COPY entrypoint.sh /home/kivera/
+COPY custom.sh /home/kivera/
 
 # Install Kivera
 ADD https://download.kivera.io/binaries/proxy/linux/amd64/kivera-$version.tar.gz /tmp/kivera.tar.gz

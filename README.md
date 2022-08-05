@@ -12,7 +12,7 @@ docker build -t kivera-proxy --build-arg version=latest .
 Create a local directory (i.e. files/) which contains your Kivera credentials file (named *credentials.json*). This directory will be mounted to the container.
 
 ```
-docker run -it -v $PWD/files:/opt/kivera/etc --user root kivera-proxy
+docker run -it -p 8080:8080 -p 8090:8090 -v $PWD/files:/home/kivera/mnt kivera-proxy
 ```
 
 ### Customise Image
